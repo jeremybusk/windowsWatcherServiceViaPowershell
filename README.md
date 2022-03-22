@@ -8,7 +8,7 @@ Write-EventLog –LogName Application –Source "watchAuth0LDAPConn" –EntryTyp
 ```
 
 # Create Script
-C:\app\watchAuth0LDAPConn.ps1
+notepad.exe C:\app\watchAuth0LDAPConn.ps1
 ```
 $url = "http://127.0.0.1:49948"
 $sleep = 30

@@ -10,18 +10,20 @@ Write-EventLog –LogName Application –Source "watchAuth0LDAPConn" –EntryTyp
 # Create Script
 C:\app\watchAuth0LDAPConn.ps1
 ```
-$url = "127.0.0.1:49948"
+$url = "http://127.0.0.1:49948"
 $sleep = 3
 $msg = "Starting $url connection watcher."
 Write-Output $msg
 Write-EventLog -LogName "Application" -Source "watchAuth0LDAPConn" -EventID 1 -EntryType Information -Message $msg
 while($true){
-  try {
-    $r = Invoke-WebRequest $url
+  try { ($rspStatusCode = Invoke-WebRequest http://localhost:49948).StatusCode
+  } catch {
+    $rspStatusCode = $_.Exception.Response.StatusCode.Value__
+    # $_.Exception.Message
   }
-  catch {
-    $_.Exception.Message
-    $msg = "URL $url is unresponsive. Restarting Auth0LDAP service."
+  if (!(200, 401 -eq $rspStatusCode)){
+    write-output "True"
+    $msg = "URL $url is unresponsive or not resonding with valid rsp code. Restarting Auth0LDAP service."
     Write-Output $msg
     Write-EventLog -LogName "Application" -Source "watchAuth0LDAPConn" -EventID 2 -EntryType Warning -Message $msg
   }

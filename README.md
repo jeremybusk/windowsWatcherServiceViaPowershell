@@ -11,7 +11,7 @@ Write-EventLog –LogName Application –Source "watchAuth0LDAPConn" –EntryTyp
 C:\app\watchAuth0LDAPConn.ps1
 ```
 $url = "http://127.0.0.1:49948"
-$sleep = 3
+$sleep = 30
 $msg = "Starting $url connection watcher."
 Write-Output $msg
 Write-EventLog -LogName "Application" -Source "watchAuth0LDAPConn" -EventID 1 -EntryType Information -Message $msg

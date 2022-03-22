@@ -26,6 +26,7 @@ while($true){
     $msg = "URL $url is unresponsive or not resonding with valid rsp code. Restarting Auth0LDAP service."
     Write-Output $msg
     Write-EventLog -LogName "Application" -Source "watchAuth0LDAPConn" -EventID 2 -EntryType Warning -Message $msg
+    restart-service "Auth0 ADLDAP"
   }
   Start-Sleep -s $sleep
 }
